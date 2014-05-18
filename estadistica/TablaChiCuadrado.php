@@ -6,23 +6,23 @@ class TablaChiCuadrado{
     /*
      * Guardará los valores como números no como string
      */
-    private static function start(){
+    function __construct($ruta){
         $fila = 1;
-        if (($gestor = fopen("tablas_csv/chicuadrado.csv", "r")) !== FALSE) {
-        while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+        if (($gestor = fopen($ruta, "r")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
                 if($fila == 1){
                     self::$nivel_de_significancia = array_slice($datos,1);
                     $fila++;
                 } else {
+                    //$matriz['clave'] = 'valores'
                     self::$matriz[$datos[0]] = array_slice($datos,1);
                 }
             }
-               fclose($gestor);
+            fclose($gestor);
         }
     }
 
-    public static function get($alfa, $grados){
-        self::start();
+    public function get($alfa, $grados){
         $indice = array_search($alfa, self::$nivel_de_significancia);
         return self::$matriz[$grados][$indice];
     }
@@ -31,7 +31,7 @@ class TablaChiCuadrado{
  * [Pruebas]
  * Ingresar TabaChicuadrado(nivel_de_significancia, grados_de_libertad);
  */
-echo TablaChiCuadrado::get(0.005,2).PHP_EOL;
-echo TablaChiCuadrado::get(0.005,2).PHP_EOL;
-echo TablaChiCuadrado::get(0.005,2).PHP_EOL;
+//$ruta = './tablas_csv/chicuadrado.csv';
+//$tc = new TablaChiCuadrado($ruta);
+//echo $tc->get(0.005,2).PHP_EOL;
 ?>
