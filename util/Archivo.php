@@ -1,21 +1,17 @@
 <?php
-
-$archivo = file("ejemplo.txt"); 
-$lineas = count($archivo); 
-//$arreglo();
-
-
-echo "El archivo  contiene ".$lineas." lineas";
-echo "<br>";
-
-
-for($i=0; $i < $lineas ; $i++) 
-{ 
-	echo $arreglo[$i]=$archivo[$i]; 
-	echo "<br>";
-
-
+class Archivo{
+   
+    public static function get_valores($ruta){
+        $archivo = file($ruta); 
+        $arreglo = array();
+        for($i=0; $i < count($archivo) ; $i++) 
+        { 
+            echo $arreglo[$i]=$archivo[$i]; 
+        }
+        return $arreglo;
+    }
 }
-
-print_r($archivo);
+// Pruebas
+//$ruta = '/ruta_a_un_archivo/archivo.txt';
+//print_r(Archivo::get_valores($ruta));
 ?>
