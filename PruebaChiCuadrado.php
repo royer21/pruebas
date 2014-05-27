@@ -8,8 +8,10 @@ require('./estadistica/TablaChiCuadrado.php');
 class PruebaChiCuadrado
 {
     private static $ruta    = './estadistica/tablas_csv/chicuadrado.csv';
-    private static $tc      = null;
+    private static $tablaChiCuadrado = null;
     private $datos          = array();
+    private $n              = -1;
+    private $m              = -1;
     private $rango_superior = array();
     private $rango_inferior = array();
     private $fo             = array();
@@ -18,6 +20,10 @@ class PruebaChiCuadrado
     private $sum_fo         = -1;
     private $sum_cuadrados  = -1;
 
+    
+    public function get_m(){
+        return $this->m;
+    }
     public function get_fe(){
         return $this->fe;
     }
@@ -46,7 +52,7 @@ class PruebaChiCuadrado
 
     public function __construct($datos)
     {
-        self::$tc    = new TablaChiCuadrado(self::$ruta);
+        self::$tablaChiCuadrado = new TablaChiCuadrado(self::$ruta);
         $this->datos = $datos;
         $this->n     = count($this->datos);
         echo "n: ".$this->n.PHP_EOL;
@@ -106,6 +112,7 @@ class PruebaChiCuadrado
         }
         return $contador;
     }
+
 }
 // Pruebas
 require('./util/Archivo.php');
@@ -114,7 +121,7 @@ $valores = Archivo::get_valores($ruta);
 $pc = new PruebaChiCuadrado($valores);
 
 echo "Datos:".PHP_EOL;
-print_r($pc->get_datos());  
+//print_r($pc->get_datos());  
 
 echo "Rango Inferior:".PHP_EOL;
 print_r($pc->get_rango_inferior());  
@@ -132,6 +139,11 @@ echo "Cuadrados:".PHP_EOL;
 print_r($pc->get_cuadrados());  
 
 echo "Suma de cuadrados:".PHP_EOL;
-echo $pc->get_suma_de_cuadrados();  
+echo $pc->get_suma_de_cuadrados()."\n";  
 
+$size = $pc->get_m();
+$rango_superior = $pc->get_rango_superior();
+for($i = 0 ; $i < $size ; $i++){
+    echo "[".$pc->get_rango_inferior()[$i]. " - " .$rango_superior[$i]."]\n";
+}
 ?>

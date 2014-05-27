@@ -20,9 +20,11 @@ class TablaChiCuadrado{
             }
             fclose($gestor);
         }
+        print_r(self::$nivel_de_significancia);
+        print_r(self::$matriz);
     }
 
-    public function get($alfa, $grados){
+    public function getChiDeTabla($alfa, $grados){
         $indice = array_search($alfa, self::$nivel_de_significancia);
         return self::$matriz[$grados][$indice];
     }
@@ -31,7 +33,8 @@ class TablaChiCuadrado{
  * [Pruebas]
  * Ingresar TabaChicuadrado(nivel_de_significancia, grados_de_libertad);
  */
-//$ruta = './tablas_csv/chicuadrado.csv';
-//$tc = new TablaChiCuadrado($ruta);
-//echo $tc->get(0.005,2).PHP_EOL;
+$ruta = './tablas_csv/chicuadrado.csv';
+$tc = new TablaChiCuadrado($ruta);
+echo "Get chi de tabla con alfa: 0.1, y grados de libertad: 3\n";
+echo "Chi de tabla: ".$tc->getChiDeTabla(0.1,3).PHP_EOL;
 ?>
